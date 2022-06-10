@@ -7,6 +7,8 @@ This github project attempts to document this packet structure.
 
 Long term plan is to be able to encode and decode these packets for use in other projects (eg DMR sms gateway or GPS logger).
 
+Note, this isn't RDAC, IPSC protocol for repeaters, just a plain mobile.
+
 # Help!
 Please, I'm stuck right now and have been stuck in the same place for a year. Anyone familier with DMR packets could get me over this initial hurdle and get this documentation moving on.
 
