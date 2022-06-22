@@ -15,17 +15,29 @@ Please, I'm stuck right now and have been stuck in the same place for a year. An
 Current Status :
 ---------------
 
+With @smarek's help we have confirmed it is Hytera's Dmr Application Protocol and his OK-DMR library successfully decodes it.
+The protocol definition is in @smareks's https://github.com/OK-DMR/dmr-kaitai/blob/master/okdmr/kaitai/hytera/hytera_dmr_application_protocol.ksy
 Data is transmitted as Hex.
 For visual inspection, convert hex to binary and split into 8 bit rows as per the examples.
 
 These appear to be standard ETSI packets and simply looking at them we can easily spot some data however there appear to be some fundermental differences.
 
 # Data Found :
-1) Logical Link ID's (LLID - The to and from radio network IP addresses).
-2) Standard Text can easily be spotted and decoded.
+1) The first byte in hex describes the packet :
+message_header_types:
+    0x02: radio_control_protocol
+    0x08: location_protocol
+    0x09: text_message_protocol
+    0x11: radio_registration
+    0x12: telemetry_protocol
+    0x13: data_transmit_protocol
+    0x14: data_delivery_states
+2) All packets end with 0x03
+3) Logical Link ID's (LLID - The to and from radio network IP addresses).
+4) Standard Text can easily be spotted and decoded.
 
 # Issues :
-1) The addresses (LLID) appear to be 28 or 32 bits (Full ip address) not the 24 bits listed in ETSI documents.
+
 2) Packet structure doesn't appear to match any of the 12 byte ETSI structures.
 
 Thoughts
