@@ -1,5 +1,5 @@
 # HyteraDMRUSB
-Reverse Engineering the Hytera DMR USB packet structure.
+Reverse Engineering the Hytera DMR USB packet structure also known as Hytera DMR Application Protocol.
 
 When 'Forward to PC' is enabled on a Hytera DMR radio, a RNDIS network is created over USB and packets are forwarded to the PC.
 
@@ -23,7 +23,8 @@ For visual inspection, convert hex to binary and split into 8 bit rows as per th
 These appear to be standard ETSI packets and simply looking at them we can easily spot some data however there appear to be some fundermental differences.
 
 # Data Found :
-1) The first byte in hex describes the packet :
+1) The first bit is the 'Reliable transmission bit' I have only seen this as a '0'.
+2) The six bits in hex describes the packet :
 message_header_types:
     0x02: radio_control_protocol
     0x08: location_protocol
@@ -32,18 +33,9 @@ message_header_types:
     0x12: telemetry_protocol
     0x13: data_transmit_protocol
     0x14: data_delivery_states
-2) All packets end with 0x03
-3) Logical Link ID's (LLID - The to and from radio network IP addresses).
-4) Standard Text can easily be spotted and decoded.
-
-# Issues :
-
-2) Packet structure doesn't appear to match any of the 12 byte ETSI structures.
-
-Thoughts
---------
-
-I would assume that the first byte describes the ETSI type of packet, from that we should be able to calculate CRC and data rate type (3/4?) to remove extra bits and leave us with a standard ETSI packet. Going on from that should be fairly simple.
+3) All packets end with 0x03
+4) Logical Link ID's (LLID - The to and from radio network IP addresses).
+5) Standard Text can easily be spotted and decoded.
 
 # Examples
 In the examples folder are some sms comparison examples with my current thoughts embeded.
